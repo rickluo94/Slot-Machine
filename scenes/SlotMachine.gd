@@ -71,6 +71,15 @@ var runs_stopped := 0
 # Store the runs independent of how they are achieved
 var total_runs : int
 
+var reel1 := 0
+var reel2 := 0
+
+var reel3 := 0
+var reel4 := 0
+
+var reel5 := 0
+var reel6 := 0
+
 func _ready():
 	# Initializes grid of tiles
 	for col in reels:
@@ -87,6 +96,7 @@ func _add_tile(col :int, row :int) -> void:
 	var tile := get_tile(col, row)
 	tile.set_tween()
 	tile.set_texture(_randomTexture())
+	#tile.set_texture(pictures[13])
 	tile.set_size(tile_size)
 	tile.position = grid_pos[col][row]
 	tile.set_speed(speed_norm)
@@ -153,14 +163,48 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 		tile.position.y = grid_pos[0][0].y
 	# Set a new random texture
 	var current_idx = total_runs - reel_runs
-	if current_idx == 0 or current_idx == 1 or current_idx == 2:
-		var ptr = "reel: %d ,current_idx: %d" % [reel, current_idx]
-		print(ptr)
-	if (current_idx < tiles_per_reel):
-		var result_texture = pictures[result.tiles[reel][current_idx]]
-		tile.set_texture(result_texture)
-	elif(state != State.OFF):
-		tile.set_texture(_randomTexture())
+	#if current_idx == 0 or current_idx == 1 or current_idx == 2:
+		#var ptr = "reel: %d ,current_idx: %d" % [reel, current_idx]
+		#print(ptr)
+	if reel == 0:
+		if (current_idx < tiles_per_reel):
+			if 15 - reel1 <= 4:
+				if reel2 < 3:
+					var result_texture = pictures[result.tiles[reel][reel2]]
+					tile.set_texture(result_texture)
+					reel2 += 1
+				
+			var ptr = "x: %d ,y: %d" % [reel, 15 - reel1]
+			print(ptr)
+			reel1 += 1
+		elif state != State.OFF:
+			tile.set_texture(_randomTexture())
+	if reel == 1:
+		if (current_idx < tiles_per_reel):
+			if 15 - reel3 <= 4:
+				if reel4 < 3:
+					var result_texture = pictures[result.tiles[reel][reel4]]
+					tile.set_texture(result_texture)
+					reel4 += 1
+				
+			var ptr = "x: %d ,y: %d" % [reel, 15 - reel4]
+			print(ptr)
+			reel3 += 1
+		elif state != State.OFF:
+			tile.set_texture(_randomTexture())
+	if reel == 2:
+		if (current_idx < tiles_per_reel):
+			if 15 - reel5 <= 4:
+				if reel6 < 3:
+					var result_texture = pictures[result.tiles[reel][reel6]]
+					tile.set_texture(result_texture)
+					reel6 += 1
+				
+			var ptr = "x: %d ,y: %d" % [reel, 15 - reel6]
+			print(ptr)
+			reel5 += 1
+		elif state != State.OFF:
+			tile.set_texture(_randomTexture())
 
 
   # Stop moving after the reel ran expected_runs times
@@ -171,7 +215,7 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 		tile.spin_down()
 		# When last reel stopped, machine is stopped
 		# print(str(reel) + " - " + str(reels))
-		if reel == reels - 1:
+		if reel >= reels:
 			_stop()
 
 # Divide it by the number of tiles to know how often the whole reel moved
@@ -186,8 +230,8 @@ func _randomTexture() -> Texture2D:
 func _get_result() -> void:
 	result = {
 		"tiles": [
-		  [ 0,0,0 ],
-		  [ 0,0,0 ],
-		  [ 0,0,0 ],
+		  [ 1,0,1 ],
+		  [ 0,1,0 ],
+		  [ 1,0,1 ],
 		]
 	}
