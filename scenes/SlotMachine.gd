@@ -3,7 +3,7 @@ extends Node2D
 const SlotTile := preload("res://scenes/SlotTile.tscn")
 # Stores the SlotTile's SPIN_UP animation distance
 const SPIN_UP_DISTANCE = 100.0
-signal stoppeds
+signal stopped
 
 @export var pictures :Array[Texture2D] = [
   preload("res://sprites/TileIcons/bat.png"),
