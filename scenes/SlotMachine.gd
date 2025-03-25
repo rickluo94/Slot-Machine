@@ -124,11 +124,13 @@ func start() -> void:
 # Force the machine to stop before runtime ends
 func stop():
 	# Tells the machine to stop at the next possible moment
-	state = State.STOPPED
+	#state = State.STOPPED
 	# Store the current runs of the first reel
 	# Add runs to update the tiles to the result images
 	runs_stopped = current_runs()
 	total_runs = runs_stopped + tiles_per_reel + 1
+	var str = "stop total_runs %d = %d + %d + 1" % [total_runs,runs_stopped,tiles_per_reel]
+	print(str)
 
 # Is called when the animation stops
 func _stop() -> void:
@@ -166,8 +168,8 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 	#if current_idx == 0 or current_idx == 1 or current_idx == 2:
 		#var ptr = "reel: %d ,current_idx: %d" % [reel, current_idx]
 		#print(ptr)
-	if reel == 0:
-		if (current_idx < tiles_per_reel):
+	if (current_idx < tiles_per_reel):
+		if reel == 0:
 			if 15 - reel1 <= 4:
 				if reel2 < 3:
 					var result_texture = pictures[result.tiles[reel][reel2]]
@@ -177,10 +179,7 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 			var ptr = "x: %d ,y: %d" % [reel, 15 - reel1]
 			print(ptr)
 			reel1 += 1
-		elif state != State.OFF:
-			tile.set_texture(_randomTexture())
-	if reel == 1:
-		if (current_idx < tiles_per_reel):
+		if reel == 1:
 			if 15 - reel3 <= 4:
 				if reel4 < 3:
 					var result_texture = pictures[result.tiles[reel][reel4]]
@@ -190,10 +189,7 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 			var ptr = "x: %d ,y: %d" % [reel, 15 - reel4]
 			print(ptr)
 			reel3 += 1
-		elif state != State.OFF:
-			tile.set_texture(_randomTexture())
-	if reel == 2:
-		if (current_idx < tiles_per_reel):
+		if reel == 2:
 			if 15 - reel5 <= 4:
 				if reel6 < 3:
 					var result_texture = pictures[result.tiles[reel][reel6]]
@@ -203,8 +199,8 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 			var ptr = "x: %d ,y: %d" % [reel, 15 - reel6]
 			print(ptr)
 			reel5 += 1
-		elif state != State.OFF:
-			tile.set_texture(_randomTexture())
+	else:
+		tile.set_texture(_randomTexture())
 
 
   # Stop moving after the reel ran expected_runs times
@@ -214,9 +210,10 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 	else: # stop moving this reel
 		tile.spin_down()
 		# When last reel stopped, machine is stopped
-		# print(str(reel) + " - " + str(reels))
-		if reel >= reels:
-			_stop()
+		#if reel == reels - 1: #reels:
+			#var ptr = "卷軸:%d, reel_runs:%d , total_runs:%d" % [reel + 1, reel_runs, total_runs]
+			#print(ptr)
+			#_stop()
 
 # Divide it by the number of tiles to know how often the whole reel moved
 # Since this function is called by each tile, the number changes (e.g. for 6 tiles: 1/6, 2/6, ...)

@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6ys4jb1sh4qi"]
+
+[ext_resource type="Script" uid="uid://b1ya8l3kmc7t6" path="res://scenes/SlotMachine.gd" id="1"]
+[ext_resource type="Script" uid="uid://d1e1e3qov0rd0" path="res://scenes/Main.gd" id="3"]
+
+[sub_resource type="Gradient" id="1"]
+
+[sub_resource type="GradientTexture1D" id="2"]
+gradient = SubResource("1")
+width = 1920
+
+[node name="root" type="Node2D"]
+script = ExtResource("3")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.639216, 0.25098, 0.239216, 1)
+light_mask = 257
+scale = Vector2(1, 1080)
+texture = SubResource("2")
+centered = false
+
+[node name="Roll" type="Button" parent="."]
+offset_left = 1060.0
+offset_top = 370.0
+offset_right = 1097.0
+offset_bottom = 401.0
+text = "Roll"
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+
+[node name="Viewport" type="SubViewport" parent="ViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1000, 800)
+render_target_update_mode = 4
+
+[node name="SlotMachine" type="Node2D" parent="ViewportContainer/Viewport"]
+script = ExtResource("1")
+pictures = null
+reels = null
+tiles_per_reel = null
+runtime = null
+speed = null
+reel_delay = null
+
+[connection signal="button_down" from="Roll" to="." method="_on_Roll_button_down"]

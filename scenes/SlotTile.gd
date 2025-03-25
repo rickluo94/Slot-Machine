@@ -26,9 +26,13 @@ func set_speed(speed):
 	tween.set_speed_scale(speed)
   
 func move_to(to: Vector2):
-	tween.stop()	
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween()
+	tween.bind_node(self)
+	tween.set_speed_scale(15)
+	tween.connect("finished", Callable(self, "on_finished"))
 	tween.tween_property(self, "position", to, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.play()
 	
 func move_by(by: Vector2):
 	move_to(position + by)
