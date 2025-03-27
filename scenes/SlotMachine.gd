@@ -158,7 +158,7 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 		tile.position.y = grid_pos[0][0].y
 	# Set a new random texture
 	var current_idx = total_runs - reel_runs
-	if (current_idx < tiles_per_reel and reel == 4):
+	if (current_idx < tiles_per_reel):
 		var result_texture = pictures[result.tiles[reel][current_idx]]
 		tile.set_texture(result_texture)
 		print("current_idx:%d reel:%d" % [current_idx, reel])
