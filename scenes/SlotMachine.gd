@@ -7,29 +7,17 @@ signal stopped
 
 
 @export var pictures :Array[Texture2D] = [
-  preload("res://sprites/TileIcons/bat.png"),
-  preload("res://sprites/TileIcons/cactus.png"),
-  preload("res://sprites/TileIcons/card-exchange.png"),
-  preload("res://sprites/TileIcons/card-joker.png"),
-  preload("res://sprites/TileIcons/chess-knight.png"),
-  preload("res://sprites/TileIcons/coffee-cup.png"),
-  preload("res://sprites/TileIcons/companion-cube.png"),
-  preload("res://sprites/TileIcons/cycling.png"),
-  preload("res://sprites/TileIcons/dandelion-flower.png"),
-  preload("res://sprites/TileIcons/eight-ball.png"),
-  preload("res://sprites/TileIcons/hummingbird.png"),
-  preload("res://sprites/TileIcons/kiwi-bird.png"),
-  preload("res://sprites/TileIcons/owl.png"),
-  preload("res://sprites/TileIcons/pc.png"),
-  preload("res://sprites/TileIcons/pie-slice.png"),
-  preload("res://sprites/TileIcons/plastic-duck.png"),
-  preload("res://sprites/TileIcons/raven.png"),
-  preload("res://sprites/TileIcons/rolling-dices.png"),
-  preload("res://sprites/TileIcons/skull-crossed-bones.png"),
-  preload("res://sprites/TileIcons/super-mushroom.png"),
-  preload("res://sprites/TileIcons/tic-tac-toe.png"),
-  preload("res://sprites/TileIcons/trojan-horse.png"),
-  preload("res://sprites/TileIcons/udder.png")
+  preload("res://sprites/Chiikawa/characters++rakko+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+chiikawa+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+furuhonya+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+Hachiware+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+kurimanu+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+momonga+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+pouchette+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+ramen+no+yoroi+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+Rou+Dou+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+shisa+phonetic+and+name+copy.png"),
+  preload("res://sprites/Chiikawa/characters+USAGI+phonetic+and+name+copy.png")
 ]
 
 @export_range(1,20) var reels :int = 5
@@ -186,10 +174,10 @@ func _randomTexture() -> Texture2D:
 func _get_result() -> void:
 	result = {
 		"tiles": [
-			[ 1,2,3,4 ],
-			[ 1,2,3,4 ],
-			[ 1,2,3,4 ],
-			[ 1,2,3,4 ],
-			[ 1,2,3,4 ],
+			[ 3,3,3,3 ],
+			[ 2,1,8,9 ],
+			[ 2,1,8,9 ],
+			[ 2,1,8,9 ],
+			[ 4,4,4,4 ],
 		]
 	}

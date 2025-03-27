@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dfu8dm8m828mu"]
 
-[ext_resource type="Texture2D" uid="uid://c2hmgh5s7odvk" path="res://sprites/TileIcons/bat.png" id="1"]
 [ext_resource type="Script" uid="uid://dgftv2q8wlrfj" path="res://scenes/SlotTile.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://2kujswm0iuec" path="res://sprites/Chiikawa/characters+chiikawa+phonetic+and+name+copy.png" id="2_xxgdn"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "SPIN_DOWN"
@@ -45,16 +45,15 @@ script = ExtResource("2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, 2.35991)
-texture = ExtResource("1")
+texture = ExtResource("2_xxgdn")
 centered = false
 
 [node name="Label" type="Label" parent="Sprite"]
 offset_right = 516.0
 offset_bottom = 512.0
 theme_override_colors/font_color = Color(0.964706, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 25
 text = "Text"
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Animations" type="AnimationPlayer" parent="."]
