@@ -5,6 +5,7 @@ const SlotTile := preload("res://scenes/SlotTile.tscn")
 const SPIN_UP_DISTANCE = 100.0
 signal stopped
 
+
 @export var pictures :Array[Texture2D] = [
   preload("res://sprites/TileIcons/bat.png"),
   preload("res://sprites/TileIcons/cactus.png"),
@@ -47,7 +48,7 @@ signal stopped
 @onready var speed_norm := speed * tiles_per_reel
 # Add additional tiles outside the viewport of each reel for smooth animation
 # Add it twice for above and below the grid
-@onready var extra_tiles := int(ceil(SPIN_UP_DISTANCE / tile_size.y) * 2)
+@onready var extra_tiles := 0#int(ceil(SPIN_UP_DISTANCE / tile_size.y)*2)
 
 # Stores the actual number of tiles
 @onready var rows := tiles_per_reel + extra_tiles
@@ -70,8 +71,6 @@ var tiles_moved_per_reel := []
 var runs_stopped := 0
 # Store the runs independent of how they are achieved
 var total_runs : int
-
-var reel_current_idx := 0
 
 func _ready():
 	# Initializes grid of tiles
@@ -120,7 +119,7 @@ func stop():
 	# Store the current runs of the first reel
 	# Add runs to update the tiles to the result images
 	runs_stopped = current_runs()
-	total_runs = runs_stopped + tiles_per_reel + 1
+	total_runs = runs_stopped + tiles_per_reel - 1
 	var pts = "stop total_runs %d = %d + %d + 1" % [total_runs,runs_stopped,tiles_per_reel]
 	print(pts)
 
@@ -128,7 +127,6 @@ func stop():
 # Is called when the animation stops
 func _stop() -> void:
 	for reel in reels:
-		await get_tree().create_timer(0.1).timeout
 		tiles_moved_per_reel[reel] = 0
 	state = State.OFF
 	emit_signal("stopped")
@@ -150,21 +148,20 @@ func _move_tile(tile :SlotTile) -> void:
 func _on_tile_moved(tile: SlotTile, _nodePath) -> void:    
 	# Calculates the reel that the tile is on
 	var reel := int(tile.position.x / tile_size.x)
+	#print("%d=%d/%d" %[reel,tile.position.x,tile_size.x])
 	# Count how many tiles moved per reel
 	tiles_moved_per_reel[reel] += 1
 	var reel_runs := current_runs(reel)
-
+	var current_idx = total_runs - reel_runs
 	# If tile moved out of the viewport, move it to the invisible row at the top
 	if (tile.position.y > grid_pos[0][-1].y):
 		tile.position.y = grid_pos[0][0].y
-	# Set a new random texture
-	var current_idx = total_runs - reel_runs
-	if (current_idx < tiles_per_reel):
-		var result_texture = pictures[result.tiles[reel][current_idx]]
-		tile.set_texture(result_texture)
-		print("current_idx:%d reel:%d tiles_per_reel:%d" % [current_idx, reel, tiles_per_reel])
-	else:
-		tile.set_texture(_randomTexture())
+			# Set a new random texture
+		if (current_idx < tiles_per_reel):
+			tile.set_texture(pictures[result.tiles[reel][current_idx]])
+			print("current_idx:%d reel:%d tiles_per_reel:%d" % [current_idx, reel, tiles_per_reel])
+		else:
+			tile.set_texture(_randomTexture())
 
   # Stop moving after the reel ran expected_runs times
   # Or if the player stopped it
@@ -172,6 +169,7 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 		tile.move_by(Vector2(0, tile_size.y))
 	else: # stop moving this reel
 		tile.spin_down()
+		await tile.get_node("Animations").animation_finished
 		# When last reel stopped, machine is stopped
 		if reel == reels - 1:
 			_stop()
@@ -188,10 +186,10 @@ func _randomTexture() -> Texture2D:
 func _get_result() -> void:
 	result = {
 		"tiles": [
-			[ 0,1,2,3 ],
-			[ 0,1,2,3 ],
-			[ 0,1,2,3 ],
-			[ 0,1,2,3 ],
-			[ 0,1,2,3 ]
+			[ 1,2,3,4 ],
+			[ 1,2,3,4 ],
+			[ 1,2,3,4 ],
+			[ 1,2,3,4 ],
+			[ 1,2,3,4 ],
 		]
 	}
