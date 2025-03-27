@@ -1,38 +1,29 @@
 extends Node2D
 class_name SlotTile
+var _size : Vector2
+var _speed : float
 
-var size :Vector2
-var tween:Tween
 signal finished
 
-func _ready():
+func _ready() -> void:
 	pass
-
-func set_tween():
-	tween = create_tween()
-	tween.stop()
-	tween.bind_node(self)
-	tween.connect("finished", Callable(self, "on_finished"))
-
+	
 func set_texture(tex):
 	$Sprite.texture = tex
-	set_size(size)
+	set_size(_size)
 
 func set_size(new_size: Vector2):
-	size = new_size
-	$Sprite.scale = size / $Sprite.texture.get_size()
+	_size = new_size
+	$Sprite.scale = _size / $Sprite.texture.get_size()
   
-func set_speed(speed):
-	tween.set_speed_scale(speed)
-  
+func set_speed(new_speed: float):
+	_speed = new_speed
+
 func move_to(to: Vector2):
-	if tween and tween.is_running():
-		tween.kill()
-	tween = create_tween()
-	tween.bind_node(self)
-	tween.set_speed_scale(15)
-	tween.connect("finished", Callable(self, "on_finished"))
+	var tween: Tween = create_tween()
+	tween.set_speed_scale(_speed)
 	tween.tween_property(self, "position", to, 1.0).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+	tween.connect("finished", Callable(self, "on_finished"))
 	
 func move_by(by: Vector2):
 	move_to(position + by)
