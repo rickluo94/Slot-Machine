@@ -48,6 +48,15 @@ position = Vector2(0, 2.35991)
 texture = ExtResource("1")
 centered = false
 
+[node name="Label" type="Label" parent="Sprite"]
+offset_right = 516.0
+offset_bottom = 512.0
+theme_override_colors/font_color = Color(0.964706, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "Text"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_xxgdn")

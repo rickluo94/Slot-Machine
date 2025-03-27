@@ -89,6 +89,7 @@ func _add_tile(col :int, row :int) -> void:
 	var tile := get_tile(col, row)
 	tile.set_speed(speed_norm)
 	tile.set_texture(_randomTexture())
+	tile.set_text("col:%d row:%d" % [col, row])
 	tile.set_size(tile_size)
 	tile.position = grid_pos[col][row]
 	add_child(tile)
@@ -161,10 +162,9 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 	if (current_idx < tiles_per_reel):
 		var result_texture = pictures[result.tiles[reel][current_idx]]
 		tile.set_texture(result_texture)
-		print("current_idx:%d reel:%d" % [current_idx, reel])
+		print("current_idx:%d reel:%d tiles_per_reel:%d" % [current_idx, reel, tiles_per_reel])
 	else:
 		tile.set_texture(_randomTexture())
-		
 
   # Stop moving after the reel ran expected_runs times
   # Or if the player stopped it
@@ -179,8 +179,8 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 # Divide it by the number of tiles to know how often the whole reel moved
 # Since this function is called by each tile, the number changes (e.g. for 6 tiles: 1/6, 2/6, ...)
 # We use ceil, so that both 1/7, as well as 7/7 return that the reel ran 1 time
-func current_runs(reel := 0) -> int:
-	return int(ceil(float(tiles_moved_per_reel[reel]) / rows))
+func current_runs(reel_idex := 0) -> int:
+	return int(ceil(float(tiles_moved_per_reel[reel_idex]) / rows))
 
 func _randomTexture() -> Texture2D:
 	return pictures[randi() % pictures.size()]
@@ -188,10 +188,10 @@ func _randomTexture() -> Texture2D:
 func _get_result() -> void:
 	result = {
 		"tiles": [
-			[ 0,1,2,2 ],
-			[ 0,1,2,2 ],
-			[ 0,1,2,2 ],
-			[ 0,1,2,2 ],
-			[ 0,1,2,2 ]
+			[ 0,1,2,3 ],
+			[ 0,1,2,3 ],
+			[ 0,1,2,3 ],
+			[ 0,1,2,3 ],
+			[ 0,1,2,3 ]
 		]
 	}
