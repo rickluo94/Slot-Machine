@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://chq8fcjj8l4om"]
+
+[ext_resource type="Script" uid="uid://bjc3bl8yhoeow" path="res://scenes/ActionEffect.gd" id="1_t1wqt"]
+[ext_resource type="Texture2D" uid="uid://bs1wsqvovx8m2" path="res://sprites/Spells/Fireball/fireball-pixel-art-1024x1024.png" id="2_jyl45"]
+
+[sub_resource type="Animation" id="Animation_jyl45"]
+resource_name = "Attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_npbqp"]
+_data = {
+&"Attack": SubResource("Animation_jyl45")
+}
+
+[node name="ActionEffect" type="Node2D"]
+script = ExtResource("1_t1wqt")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(118, 116)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_jyl45")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_npbqp")
+}
