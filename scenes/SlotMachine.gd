@@ -5,29 +5,69 @@ const SlotTile := preload("res://scenes/SlotTile.tscn")
 const SPIN_UP_DISTANCE = 100.0
 signal stopped
 
-
 @export var pictures :Array[Texture2D] = [
-  preload("res://sprites/Chiikawa/characters++rakko+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+chiikawa+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+furuhonya+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+Hachiware+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+kurimanu+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+momonga+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+pouchette+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+ramen+no+yoroi+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+Rou+Dou+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+shisa+phonetic+and+name+copy.png"),
-  preload("res://sprites/Chiikawa/characters+USAGI+phonetic+and+name+copy.png")
+	#Spades
+	preload("res://sprites/CardIcons/ace_of_spades2.png"),
+	preload("res://sprites/CardIcons/2_of_spades.png"),
+	preload("res://sprites/CardIcons/3_of_spades.png"),
+	preload("res://sprites/CardIcons/4_of_spades.png"),
+	preload("res://sprites/CardIcons/5_of_spades.png"),
+	preload("res://sprites/CardIcons/6_of_spades.png"),
+	preload("res://sprites/CardIcons/7_of_spades.png"),
+	preload("res://sprites/CardIcons/8_of_spades.png"),
+	preload("res://sprites/CardIcons/9_of_spades.png"),
+	preload("res://sprites/CardIcons/10_of_spades.png"),
+	preload("res://sprites/CardIcons/queen_of_spades.png"),
+	preload("res://sprites/CardIcons/king_of_spades.png"),
+	#Hearts
+	preload("res://sprites/CardIcons/ace_of_hearts.png"),
+	preload("res://sprites/CardIcons/2_of_hearts.png"),
+	preload("res://sprites/CardIcons/3_of_hearts.png"),
+	preload("res://sprites/CardIcons/4_of_hearts.png"),
+	preload("res://sprites/CardIcons/5_of_hearts.png"),
+	preload("res://sprites/CardIcons/6_of_hearts.png"),
+	preload("res://sprites/CardIcons/7_of_hearts.png"),
+	preload("res://sprites/CardIcons/8_of_hearts.png"),
+	preload("res://sprites/CardIcons/9_of_hearts.png"),
+	preload("res://sprites/CardIcons/10_of_hearts.png"),
+	preload("res://sprites/CardIcons/queen_of_hearts.png"),
+	preload("res://sprites/CardIcons/king_of_hearts.png"),
+	#Diamonds
+	preload("res://sprites/CardIcons/ace_of_diamonds.png"),
+	preload("res://sprites/CardIcons/2_of_diamonds.png"),
+	preload("res://sprites/CardIcons/3_of_diamonds.png"),
+	preload("res://sprites/CardIcons/4_of_diamonds.png"),
+	preload("res://sprites/CardIcons/5_of_diamonds.png"),
+	preload("res://sprites/CardIcons/6_of_diamonds.png"),
+	preload("res://sprites/CardIcons/7_of_diamonds.png"),
+	preload("res://sprites/CardIcons/8_of_diamonds.png"),
+	preload("res://sprites/CardIcons/9_of_diamonds.png"),
+	preload("res://sprites/CardIcons/10_of_diamonds.png"),
+	preload("res://sprites/CardIcons/queen_of_diamonds.png"),
+	preload("res://sprites/CardIcons/king_of_diamonds.png"),
+	#Clubs
+	preload("res://sprites/CardIcons/ace_of_clubs.png"),
+	preload("res://sprites/CardIcons/2_of_clubs.png"),
+	preload("res://sprites/CardIcons/3_of_clubs.png"),
+	preload("res://sprites/CardIcons/4_of_clubs.png"),
+	preload("res://sprites/CardIcons/5_of_clubs.png"),
+	preload("res://sprites/CardIcons/6_of_clubs.png"),
+	preload("res://sprites/CardIcons/7_of_clubs.png"),
+	preload("res://sprites/CardIcons/8_of_clubs.png"),
+	preload("res://sprites/CardIcons/9_of_clubs.png"),
+	preload("res://sprites/CardIcons/10_of_clubs.png"),
+	preload("res://sprites/CardIcons/queen_of_clubs.png"),
+	preload("res://sprites/CardIcons/king_of_clubs.png"),
 ]
 
 @export_range(1,20) var reels :int = 5
 @export_range(1,20) var tiles_per_reel :int = 4
 # Defines how long the reels are spinning
-@export_range(0,10) var runtime :float = 1.0
+@export_range(0,10) var runtime :float = 2.0
 # Defines how fast the reels are spinning
 @export_range(0.1,10) var speed :float = 5.0
 # Defines the start delay between each reel
-@export_range(0,2) var reel_delay :float = 0.2
+@export_range(0,2) var reel_delay :float = 0.3
 
 # Adjusts tile size to viewport
 @onready var size := get_viewport_rect().size
@@ -76,7 +116,8 @@ func _add_tile(col :int, row :int) -> void:
 	var tile := get_tile(col, row)
 	tile.set_speed(speed_norm)
 	tile.set_texture(_randomTexture())
-	tile.set_text("col:%d row:%d" % [col, row])
+	#tile.set_text("col:%d row:%d" % [col, row])
+	tile.set_text("")
 	tile.set_size(tile_size)
 	tile.position = grid_pos[col][row]
 	add_child(tile)
@@ -170,10 +211,10 @@ func _randomTexture() -> Texture2D:
 func _get_result() -> void:
 	result = {
 		"tiles": [
-			[ 3,3,3,3 ],
-			[ 2,1,8,9 ],
-			[ 2,1,8,9 ],
-			[ 2,1,8,9 ],
-			[ 4,4,4,4 ],
+			[ 0,1,0,0 ],
+			[ 0,1,0,0 ],
+			[ 0,1,0,0 ],
+			[ 0,1,0,0 ],
+			[ 0,1,0,0 ],
 		]
 	}
