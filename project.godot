@@ -23,3 +23,7 @@ window/size/width=1920
 window/size/height=1080
 window/size/test_width=640
 window/size/test_height=360
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
