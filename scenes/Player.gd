@@ -42,7 +42,7 @@ var base_symbol_weights: Dictionary = {
 var current_symbol_weights: Dictionary = base_symbol_weights.duplicate()
 
 # 職業加成權重（選擇職業時增加的權重值）
-@export var profession_weight_bonus: float = 0.25  # 例如，提升 25%
+@export var profession_weight_bonus: float = 0.15  # 例如，提升 15%
 
 # 花色索引範圍
 const SUIT_RANGES = {
