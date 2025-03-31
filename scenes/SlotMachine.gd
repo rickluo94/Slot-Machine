@@ -34,9 +34,9 @@ signal stopped
 @onready var tile_size := size / Vector2(reels, tiles_per_reel)
 # Normalizes the speed for consistancy independent of the number of tiles
 @onready var speed_norm := speed * tiles_per_reel
-# Add additional tiles outside the viewport of each reel for smooth animation
-# Add it twice for above and below the grid
-@onready var extra_tiles := 0#int(ceil(SPIN_UP_DISTANCE / tile_size.y)*2)
+# 在每個捲軸中增加瓦片在鏡頭外增加動畫流暢度
+# Grid 增加兩個瓦片在前後的 TODO 當前也會因為增加的瓦片在停止時未依照預期結果
+@onready var extra_tiles := int(ceil(SPIN_UP_DISTANCE / tile_size.y)*2)
 
 # Stores the actual number of tiles
 @onready var rows := tiles_per_reel + extra_tiles
@@ -103,13 +103,11 @@ func start() -> void:
 # Force the machine to stop before runtime ends
 func stop():
 	# Tells the machine to stop at the next possible moment
-	#state = State.STOPPED
+	state = State.STOPPED
 	# Store the current runs of the first reel
 	# Add runs to update the tiles to the result images
 	runs_stopped = current_runs()
 	total_runs = runs_stopped + tiles_per_reel - 1
-	var pts = "stop total_runs %d = %d + %d + 1" % [total_runs,runs_stopped,tiles_per_reel]
-	print(pts)
 
 # 問題動畫尚未結束就將陣列歸零重置
 # Is called when the animation stops
@@ -136,7 +134,6 @@ func _move_tile(tile :SlotTile) -> void:
 func _on_tile_moved(tile: SlotTile, _nodePath) -> void:    
 	# Calculates the reel that the tile is on
 	var reel := int(tile.position.x / tile_size.x)
-	#print("%d=%d/%d" %[reel,tile.position.x,tile_size.x])
 	# Count how many tiles moved per reel
 	tiles_moved_per_reel[reel] += 1
 	var reel_runs := current_runs(reel)
@@ -147,7 +144,6 @@ func _on_tile_moved(tile: SlotTile, _nodePath) -> void:
 			# Set a new random texture
 		if (current_idx < tiles_per_reel):
 			tile.set_texture(pictures[result.tiles[reel][current_idx]])
-			print("current_idx:%d reel:%d tiles_per_reel:%d" % [current_idx, reel, tiles_per_reel])
 		else:
 			tile.set_texture(_randomTexture())
 
