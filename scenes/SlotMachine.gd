@@ -36,7 +36,7 @@ signal stopped
 @onready var speed_norm := speed * tiles_per_reel
 # 在每個捲軸中增加瓦片在鏡頭外增加動畫流暢度
 # Grid 增加兩個瓦片在前後的 TODO 當前也會因為增加的瓦片在停止時未依照預期結果
-@onready var extra_tiles := int(ceil(SPIN_UP_DISTANCE / tile_size.y)*2)
+@onready var extra_tiles := 0#int(ceil(SPIN_UP_DISTANCE / tile_size.y)*2)
 
 # Stores the actual number of tiles
 @onready var rows := tiles_per_reel + extra_tiles
