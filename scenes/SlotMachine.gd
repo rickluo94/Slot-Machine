@@ -1,12 +1,14 @@
 extends Node2D
 
 const SlotTile := preload("res://scenes/SlotTile.tscn")
+const Player := preload("res://scenes/Player.tscn")
+var player:Node2D
 # Stores the SlotTile's SPIN_UP animation distance
 const SPIN_UP_DISTANCE = 100.0
 signal stopped
 
 @export var pictures :Array[Texture2D] = [
-	#Spades
+	# Spades (0-11)
 	preload("res://sprites/CardIcons/ace_of_spades2.png"),
 	preload("res://sprites/CardIcons/2_of_spades.png"),
 	preload("res://sprites/CardIcons/3_of_spades.png"),
@@ -19,7 +21,7 @@ signal stopped
 	preload("res://sprites/CardIcons/10_of_spades.png"),
 	preload("res://sprites/CardIcons/queen_of_spades.png"),
 	preload("res://sprites/CardIcons/king_of_spades.png"),
-	#Hearts
+	# Hearts (12-23)
 	preload("res://sprites/CardIcons/ace_of_hearts.png"),
 	preload("res://sprites/CardIcons/2_of_hearts.png"),
 	preload("res://sprites/CardIcons/3_of_hearts.png"),
@@ -32,7 +34,7 @@ signal stopped
 	preload("res://sprites/CardIcons/10_of_hearts.png"),
 	preload("res://sprites/CardIcons/queen_of_hearts.png"),
 	preload("res://sprites/CardIcons/king_of_hearts.png"),
-	#Diamonds
+	# Diamonds (24-35)
 	preload("res://sprites/CardIcons/ace_of_diamonds.png"),
 	preload("res://sprites/CardIcons/2_of_diamonds.png"),
 	preload("res://sprites/CardIcons/3_of_diamonds.png"),
@@ -45,7 +47,7 @@ signal stopped
 	preload("res://sprites/CardIcons/10_of_diamonds.png"),
 	preload("res://sprites/CardIcons/queen_of_diamonds.png"),
 	preload("res://sprites/CardIcons/king_of_diamonds.png"),
-	#Clubs
+	# Clubs (36-47)
 	preload("res://sprites/CardIcons/ace_of_clubs.png"),
 	preload("res://sprites/CardIcons/2_of_clubs.png"),
 	preload("res://sprites/CardIcons/3_of_clubs.png"),
@@ -101,6 +103,12 @@ var runs_stopped := 0
 var total_runs : int
 
 func _ready():
+	# Initializes Player
+	player = Player.instantiate()
+	$"../../../CombatViewportContainer".get_node('Viewport/CombatBoard').set_player(player)
+	await player.set_profession(player.Profession.MAGE)  # 初始化時設置職業
+	print("Name:", player.player_name)
+	
 	# Initializes grid of tiles
 	for col in reels:
 		grid_pos.append([])
@@ -208,13 +216,14 @@ func current_runs(reel_idex := 0) -> int:
 func _randomTexture() -> Texture2D:
 	return pictures[randi() % pictures.size()]
 
+# 取得結果
 func _get_result() -> void:
 	result = {
 		"tiles": [
-			[ 0,1,0,0 ],
-			[ 0,1,0,0 ],
-			[ 0,1,0,0 ],
-			[ 0,1,0,0 ],
-			[ 0,1,0,0 ],
+			[ 1,player.get_random_texture_idx(),5,1 ],
+			[ 2,player.get_random_texture_idx(),4,2 ],
+			[ 3,player.get_random_texture_idx(),3,3 ],
+			[ 4,player.get_random_texture_idx(),2,4 ],
+			[ 5,player.get_random_texture_idx(),1,5 ],
 		]
 	}
