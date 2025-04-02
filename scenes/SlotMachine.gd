@@ -2,7 +2,10 @@ extends Node2D
 
 const SlotTile := preload("res://scenes/SlotTile.tscn")
 const Player := preload("res://scenes/Player.tscn")
+const ActionEffect := preload("res://scenes/ActionEffect.tscn")
+
 var player:Node2D
+var actionEffect:Node2D
 # Stores the SlotTile's SPIN_UP animation distance
 const SPIN_UP_DISTANCE = 100.0
 signal stopped
@@ -105,9 +108,13 @@ var total_runs : int
 func _ready():
 	# Initializes Player
 	player = Player.instantiate()
+	actionEffect = ActionEffect.instantiate()
 	$"../../../CombatViewportContainer".get_node('Viewport/CombatBoard').set_player(player)
+	$"../../../CombatViewportContainer".get_node('Viewport/CombatBoard').set_player_action(actionEffect)
 	await player.set_profession(player.Profession.MAGE)  # 初始化時設置職業
 	print("Name:", player.player_name)
+	# 當運作停止時觸發玩家動作效果動畫
+	self.connect("stopped", Callable(actionEffect, "attack_right"))
 	
 	# Initializes grid of tiles
 	for col in reels:

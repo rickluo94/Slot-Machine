@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dfu8dm8m828mu"]
 
 [ext_resource type="Script" uid="uid://dgftv2q8wlrfj" path="res://scenes/SlotTile.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://cb3h3mwemqa4w" path="res://sprites/CardIcons/ace_of_spades2.png" id="2_xxgdn"]
+[ext_resource type="Texture2D" uid="uid://dpxiuduyqmm1e" path="res://sprites/CardIcons/ace_of_spades2.png" id="2_xxgdn"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "SPIN_DOWN"
@@ -44,6 +44,7 @@ _data = {
 script = ExtResource("2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, 2.35991)
 texture = ExtResource("2_xxgdn")
 centered = false
 

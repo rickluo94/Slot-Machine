@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b1ya8l3kmc7t6" path="res://scenes/SlotMachine.gd" id="1"]
 [ext_resource type="Script" uid="uid://d1e1e3qov0rd0" path="res://scenes/Main.gd" id="3"]
-[ext_resource type="Script" path="res://scenes/CombatBoard.gd" id="3_0bbpv"]
+[ext_resource type="Script" uid="uid://c8xb1l3valssx" path="res://scenes/CombatBoard.gd" id="3_0bbpv"]
 
 [sub_resource type="Gradient" id="1"]
 
@@ -54,12 +54,12 @@ color = Color(0, 0, 0, 1)
 
 [node name="CombatViewportContainer" type="SubViewportContainer" parent="."]
 offset_top = -4.0
-offset_right = 1151.0
-offset_bottom = 196.0
+offset_right = 1152.0
+offset_bottom = 192.0
 
 [node name="Viewport" type="SubViewport" parent="CombatViewportContainer"]
 handle_input_locally = false
-size = Vector2i(512, 200)
+size = Vector2i(1152, 196)
 render_target_update_mode = 4
 
 [node name="CombatBoard" type="Node2D" parent="CombatViewportContainer/Viewport"]
