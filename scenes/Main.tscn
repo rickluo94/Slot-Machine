@@ -1,10 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6ys4jb1sh4qi"]
+[gd_scene load_steps=6 format=3 uid="uid://b6ys4jb1sh4qi"]
 
 [ext_resource type="Script" uid="uid://b1ya8l3kmc7t6" path="res://scenes/SlotMachine.gd" id="1"]
 [ext_resource type="Script" uid="uid://d1e1e3qov0rd0" path="res://scenes/Main.gd" id="3"]
-[ext_resource type="Script" uid="uid://c8xb1l3valssx" path="res://scenes/CombatBoard.gd" id="3_0bbpv"]
-[ext_resource type="AudioStream" uid="uid://d4nocev2r5ott" path="res://sound/spin_metal_click.wav" id="4_rarhs"]
-[ext_resource type="AudioStream" uid="uid://lm3jj2ke00yh" path="res://sound/spin_stop_heavy_click.wav" id="6_c01mt"]
+[ext_resource type="Script" path="res://scenes/CombatBoard.gd" id="3_0bbpv"]
 
 [sub_resource type="Gradient" id="1"]
 
@@ -43,14 +41,18 @@ render_target_update_mode = 4
 script = ExtResource("1")
 
 [node name="ColorRectTop" type="ColorRect" parent="."]
-visible = false
 offset_top = -4.0
 offset_right = 1152.0
 offset_bottom = 197.0
 color = Color(0, 0, 0, 1)
 
+[node name="ColorRectBottom" type="ColorRect" parent="."]
+offset_top = 405.0
+offset_right = 1152.0
+offset_bottom = 938.334
+color = Color(0, 0, 0, 1)
+
 [node name="CombatViewportContainer" type="SubViewportContainer" parent="."]
-visible = false
 offset_top = -2.0
 offset_right = 1152.0
 offset_bottom = 183.0
@@ -58,24 +60,9 @@ offset_bottom = 183.0
 [node name="Viewport" type="SubViewport" parent="CombatViewportContainer"]
 handle_input_locally = false
 size = Vector2i(1152, 185)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="CombatBoard" type="Node2D" parent="CombatViewportContainer/Viewport"]
 script = ExtResource("3_0bbpv")
-
-[node name="ColorRectBottom" type="ColorRect" parent="."]
-visible = false
-offset_top = 405.0
-offset_right = 1152.0
-offset_bottom = 938.334
-color = Color(0, 0, 0, 1)
-
-[node name="SpinSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_rarhs")
-volume_db = -6.0
-pitch_scale = 0.8
-
-[node name="StopSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_c01mt")
 
 [connection signal="button_down" from="Roll" to="." method="_on_Roll_button_down"]

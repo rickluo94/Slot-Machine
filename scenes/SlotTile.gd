@@ -18,8 +18,6 @@ func set_size(new_size: Vector2):
 	
 func set_text(new_text: String):
 	$Sprite/Label.text = new_text
-	$Sprite/Label.add_theme_font_size_override("font_size", 50)
-	$Sprite/Label.add_theme_color_override("font_color", Color("#70DB98"))
 
 func set_speed(new_speed: float):
 	_speed = new_speed
