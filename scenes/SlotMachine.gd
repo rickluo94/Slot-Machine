@@ -108,10 +108,37 @@ var runs_stopped := 0
 # 儲存與實際執行方式無關的總移動次數
 var total_runs : int
 
+# 聲音
 @onready var spin_sound = $"../../../SpinSound"
 @onready var stop_sound = $"../../../StopSound"
+@onready var bgm_sound = $"../../../BGMSound"
+@onready var big_win_sound = $"../../../BigWinSound"
+@onready var Jackpot_sound = $"../../../JackpotSound"
+@onready var MegaWin_Sound = $"../../../MegaWinSound"
+
+# 動畫
+@onready var bigWin_Ani = $"../../../turmp_point"
+
+	
+func _on_anim_finished():
+	bigWin_Ani.visible = false
+	bigWin_Ani.pause()
+	
+func bigWin_Ani_ini():
+	bigWin_Ani.visible = false
+	bigWin_Ani.animation_finished.connect(_on_anim_finished)
+	
+func play_once_bigWin_Ani():
+	bigWin_Ani.visible = true
+	bigWin_Ani.frame = 0
+	bigWin_Ani.play()
+	big_win_sound.play()
 
 func _ready():
+	# BGM
+	bgm_sound.play()
+	# WIN ANI
+	bigWin_Ani_ini()
 	# 初始化玩家
 	player = Player.instantiate()
 	actionEffect = ActionEffect.instantiate()
@@ -148,6 +175,7 @@ func get_tile(col :int, row :int) -> SlotTile:
 	return tiles[(col * rows) + row]
 
 func start() -> void:
+	_on_anim_finished()
   # 僅在尚未運作時才開始
 	if state == State.OFF:
 		state = State.ON
@@ -180,6 +208,7 @@ func _stop() -> void:
 		tiles_moved_per_reel[reel] = 0
 	state = State.OFF
 	emit_signal("stopped")
+	play_once_bigWin_Ani()
 
 # 開始移動指定轉軸上的所有瓦片
 func _spin_reel(reel :int) -> void:
