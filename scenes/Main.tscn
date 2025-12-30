@@ -1076,7 +1076,7 @@ stream = ExtResource("8_lhr70")
 stream = ExtResource("9_wp0k4")
 
 [node name="turmp_point" type="AnimatedSprite2D" parent="."]
-position = Vector2(274.99997, 262.99997)
+position = Vector2(270, 271)
 scale = Vector2(0.50839126, 0.5083913)
 sprite_frames = SubResource("SpriteFrames_tbmry")
 frame = 37
