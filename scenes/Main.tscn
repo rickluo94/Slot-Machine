@@ -1,9 +1,9 @@
-[gd_scene load_steps=255 format=3 uid="uid://b6ys4jb1sh4qi"]
+[gd_scene load_steps=259 format=3 uid="uid://b6ys4jb1sh4qi"]
 
 [ext_resource type="Script" uid="uid://b1ya8l3kmc7t6" path="res://scenes/SlotMachine.gd" id="1"]
 [ext_resource type="Script" uid="uid://d1e1e3qov0rd0" path="res://scenes/Main.gd" id="3"]
 [ext_resource type="Script" uid="uid://c8xb1l3valssx" path="res://scenes/CombatBoard.gd" id="3_0bbpv"]
-[ext_resource type="AudioStream" uid="uid://d4nocev2r5ott" path="res://sound/spin_metal_click.wav" id="4_rarhs"]
+[ext_resource type="AudioStream" uid="uid://cs8nh2kjycql5" path="res://sound/spin_metal_sound.wav" id="4_euk7l"]
 [ext_resource type="AudioStream" uid="uid://lm3jj2ke00yh" path="res://sound/spin_stop_heavy_click.wav" id="6_c01mt"]
 [ext_resource type="AudioStream" uid="uid://bw1h6epmut0nc" path="res://sound/coin_hop_carousel.mp3" id="6_nxtc6"]
 [ext_resource type="AudioStream" uid="uid://bbathi01hekth" path="res://sound/win_sound/BIG_WIN_Well_played.mp3" id="7_q8u5g"]
@@ -247,10 +247,14 @@
 [ext_resource type="Texture2D" uid="uid://cnnfkxotwe6rj" path="res://win/trump_point/frame_0330.png" id="245_a3pi0"]
 [ext_resource type="Texture2D" uid="uid://bifl5w0204ahq" path="res://win/trump_point/frame_0331.png" id="246_6ohil"]
 [ext_resource type="Texture2D" uid="uid://b8h5rbcixn3vv" path="res://win/trump_point/frame_0332.png" id="247_r5vpu"]
+[ext_resource type="Texture2D" uid="uid://bib30r2l6s8dj" path="res://win/big_win/coin_treasure.png" id="247_std7w"]
+[ext_resource type="Script" uid="uid://bbips6j88okii" path="res://scenes/big_win_coin.gd" id="248_bfh1w"]
 [ext_resource type="Texture2D" uid="uid://c15ax1x6jxh1y" path="res://win/trump_point/frame_0333.png" id="248_vcrjg"]
 [ext_resource type="Texture2D" uid="uid://bdqmaet6sr21o" path="res://win/trump_point/frame_0334.png" id="249_ty65q"]
 [ext_resource type="Texture2D" uid="uid://1rale6nrofv6" path="res://win/trump_point/frame_0335.png" id="250_pnmop"]
 [ext_resource type="Texture2D" uid="uid://ctmu2iavahyxu" path="res://win/trump_point/frame_0336.png" id="251_2avv3"]
+[ext_resource type="Texture2D" uid="uid://ri6h1p44gk32" path="res://win/big_win/big_win_coin.png" id="252_euk7l"]
+[ext_resource type="AudioStream" uid="uid://dv66hrljgpkhi" path="res://sound/big-jackpot-coins.wav" id="253_mpw2q"]
 
 [sub_resource type="Gradient" id="1"]
 
@@ -1003,16 +1007,19 @@ texture = SubResource("2")
 centered = false
 
 [node name="Roll" type="Button" parent="."]
-offset_left = 1034.0001
-offset_top = 375.0
-offset_right = 1071.0001
-offset_bottom = 406.0
+offset_left = 1445.5314
+offset_top = 490.878
+offset_right = 1482.5314
+offset_bottom = 521.878
 scale = Vector2(2.5, 2.5)
 text = "Roll"
+metadata/_edit_use_anchors_ = true
 
 [node name="ViewportContainer" type="SubViewportContainer" parent="."]
-offset_right = 1000.0
-offset_bottom = 800.0
+offset_left = 411.53128
+offset_top = 115.87799
+offset_right = 1411.5313
+offset_bottom = 915.878
 
 [node name="Viewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
@@ -1050,9 +1057,30 @@ offset_right = 1152.0
 offset_bottom = 938.334
 color = Color(0, 0, 0, 1)
 
+[node name="turmp_point" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(681.53125, 386.878)
+scale = Vector2(0.50839126, 0.5083913)
+sprite_frames = SubResource("SpriteFrames_tbmry")
+frame = 37
+frame_progress = 0.45767987
+
+[node name="coin_treasure" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(683.56885, 727.3533)
+scale = Vector2(0.3350953, 0.33509532)
+texture = ExtResource("247_std7w")
+
+[node name="big_win_coin" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(706, 847)
+scale = Vector2(0.17674632, 0.17559548)
+texture = ExtResource("252_euk7l")
+script = ExtResource("248_bfh1w")
+
 [node name="SpinSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_rarhs")
-volume_db = -6.0
+stream = ExtResource("4_euk7l")
+volume_db = -3.0
 pitch_scale = 0.72
 mix_target = 2
 
@@ -1075,12 +1103,8 @@ stream = ExtResource("8_lhr70")
 [node name="MegaWinSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_wp0k4")
 
-[node name="turmp_point" type="AnimatedSprite2D" parent="."]
-position = Vector2(270, 271)
-scale = Vector2(0.50839126, 0.5083913)
-sprite_frames = SubResource("SpriteFrames_tbmry")
-frame = 37
-frame_progress = 0.45767987
+[node name="BigWinCoinSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("253_mpw2q")
 
 [connection signal="button_down" from="Roll" to="." method="_on_Roll_button_down"]
 [connection signal="animation_finished" from="turmp_point" to="ViewportContainer/Viewport/SlotMachine" method="_on_anim_finished"]

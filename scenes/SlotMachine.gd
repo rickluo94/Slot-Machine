@@ -113,26 +113,47 @@ var total_runs : int
 @onready var stop_sound = $"../../../StopSound"
 @onready var bgm_sound = $"../../../BGMSound"
 @onready var big_win_sound = $"../../../BigWinSound"
+@onready var big_win_coin_sound = $"../../../BigWinCoinSound"
 @onready var Jackpot_sound = $"../../../JackpotSound"
 @onready var MegaWin_Sound = $"../../../MegaWinSound"
+
+# 得獎大圖
+@onready var big_win_coin_img = $"../../../big_win_coin"
+@onready var coin_treasure_img = $"../../../coin_treasure"
 
 # 動畫
 @onready var bigWin_Ani = $"../../../turmp_point"
 
 	
 func _on_anim_finished():
+	big_win_coin_img.visible = false
+	coin_treasure_img.visible = false
 	bigWin_Ani.visible = false
 	bigWin_Ani.pause()
+	big_win_sound.stop()
+	big_win_coin_sound.stop()
 	
 func bigWin_Ani_ini():
+	big_win_coin_img.visible = false
+	coin_treasure_img.visible = false
 	bigWin_Ani.visible = false
 	bigWin_Ani.animation_finished.connect(_on_anim_finished)
 	
 func play_once_bigWin_Ani():
+	big_win_coin_img.pop_big()
+	big_win_coin_img.visible = true
+	coin_treasure_img.visible = true
 	bigWin_Ani.visible = true
 	bigWin_Ani.frame = 0
 	bigWin_Ani.play()
 	big_win_sound.play()
+	big_win_coin_sound.play()
+	
+func play_segment(start_sec: float, duration: float):
+	spin_sound.play(start_sec)
+
+	await get_tree().create_timer(duration).timeout
+	spin_sound.stop()
 
 func _ready():
 	# BGM
@@ -186,7 +207,7 @@ func start() -> void:
 		# 旋轉所有轉軸
 		for reel in reels:
 			_spin_reel(reel)
-			spin_sound.play()
+			play_segment(0.1,6)
 			# 稍後再旋轉下一個轉軸
 			if reel_delay > 0:
 				await get_tree().create_timer(reel_delay).timeout
